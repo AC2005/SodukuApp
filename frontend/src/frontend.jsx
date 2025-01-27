@@ -20,7 +20,6 @@ function SudokuSolver() {
     };
 
     const handleSubmit = async () => {
-        setIsProcessing(true);
         if (!file) {
             alert("Please select a file before submitting.");
             return;
@@ -28,6 +27,7 @@ function SudokuSolver() {
         const formData = new FormData();
         formData.append('image', file);
         console.log("File being sent:", file);
+        setIsProcessing(true);
         try {
             const response = await fetch('/extract', {
                 method: 'POST',
@@ -201,12 +201,17 @@ function SudokuSolver() {
 
         {states.length > 0 && (
                         <div>
-                            <h3>Backtracking Animation (Step {currentStep + 1}/{states.length}):</h3>
+                            <h3>Solve Animation:</h3>
                             {renderBoard(states[currentStep])}
                             <div className="controls">
+                                <div>
                                 <button onClick={() => setIsAnimating(!isAnimating)}>
-                                    {isAnimating ? 'Pause' : 'Resume'}
+                                    {isAnimating ? 'Pause' : 'Play'}
                                 </button>
+                                <button onClick={() => setCurrentStep(0)}>
+                                    Restart Animation
+                                </button>
+                                </div>
                             </div>
                         </div>
                     )}

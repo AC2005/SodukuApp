@@ -38,6 +38,7 @@ def solve_with_steps(board):
                 cols[j].add(board[i][j])
                 boxes[3 * (i // 3) + j // 3].add(board[i][j])
     res = []
+    res.append([row[:] for row in board])
     # backtracking algorithm
     def backtrack(x, y):
         nonlocal res
