@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 
 function SudokuSolver() {
     const [file, setFile] = useState(null);
@@ -15,6 +15,7 @@ function SudokuSolver() {
           .fill(null)
           .map(() => Array(9).fill(false))
       );
+    const fileInputRef = useRef(null);
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     };
@@ -46,6 +47,7 @@ function SudokuSolver() {
                 setIsEditing(false); // Reset editing mode
                 setStates(0);
                 setFile(null);
+                fileInputRef.current.value = null;
                 console.log("hi", board);
             } else {
                 alert("Error: Unable to load puzzle");
