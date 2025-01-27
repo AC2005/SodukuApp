@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef} from 'react';
 function SudokuSolver() {
     const [file, setFile] = useState(null);
     const [board, setBoard] = useState(null);
-    const [solution, setSolution] = useState(null);
     const [editableBoard, setEditableBoard] = useState(null); // Store the editable board
     const [isEditing, setIsEditing] = useState(false); // Toggle editing mode
     const [states, setStates] = useState([]); // Store intermediate backtracking states
@@ -15,19 +14,19 @@ function SudokuSolver() {
           .fill(null)
           .map(() => Array(9).fill(false))
       );
-    const fileInputRef = useRef(null);
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     };
 
     const handleSubmit = async () => {
+        // collect data
         if (!file) {
             alert("Please select a file before submitting.");
             return;
         }
         const formData = new FormData();
         formData.append('image', file);
-        console.log("File being sent:", file);
+
         setIsProcessing(true);
         try {
             const response = await fetch('/extract', {
@@ -36,19 +35,22 @@ function SudokuSolver() {
             });
             const data = await response.json();
             if (response.ok) {
-                //setSolution(data.solution);
+                // set board and mark numbers that are original to upload
                 setBoard(data.board);
-                console.log(data.board);
                 const newIsOriginal = data.board.map((row) =>
                     row.map((cell) => cell !== "")
                   );
-                setIsOriginal(newIsOriginal); // Persist the updated value in state
-                setEditableBoard(JSON.parse(JSON.stringify(data.board))); // Clone the board for editing
-                setIsEditing(false); // Reset editing mode
+                setIsOriginal(newIsOriginal);
+
+                // need clone for editing
+                setEditableBoard(JSON.parse(JSON.stringify(data.board))); 
+                setIsEditing(false);
+
+                // has not been solved
                 setStates(0);
+
+                // UI cleanup
                 setFile(null);
-                fileInputRef.current.value = null;
-                console.log("hi", board);
             } else {
                 alert("Error: Unable to load puzzle");
             }
@@ -60,10 +62,9 @@ function SudokuSolver() {
         setIsProcessing(false);
     };
 
+    // display the grid on screen
     const renderBoard = (grid) => {
-        console.log("Grid data for rendering:", grid);
         if (!grid) return null;
-        console.log("isOriginal array:", isOriginal);
         return (
             <div className="sudoku-grid">
             {grid.flat().map((cell, index) => {
@@ -73,6 +74,7 @@ function SudokuSolver() {
               return (
                 <div
                   key={index}
+                  // color based on if cell is original or derived from solver
                   className={isOriginal[rowIndex][colIndex] ? "cell original" : "cell solver"}
                 >
                   {cell !== 0 ? cell : ""}
@@ -83,6 +85,7 @@ function SudokuSolver() {
         );
     }
 
+    // solve the board
     const solveBoard = async () => {
         if (!board) {
             alert("No board to solve. Please extract a board first.");
@@ -154,7 +157,7 @@ function SudokuSolver() {
         );
     };
     
-    // Automatically advance the animation
+    // animate
     useEffect(() => {
         if (isAnimating) {
             const interval = setInterval(() => {
@@ -167,12 +170,13 @@ function SudokuSolver() {
                         return prevStep;
                     }
                 });
-            }, 100); // Adjust the interval (e.g., 1000ms = 1 second)
+            }, 100); // time between states
 
-            return () => clearInterval(interval); // Cleanup on component unmount or when animation stops
+            return () => clearInterval(interval); // Cleanup
         }
     }, [isAnimating, states.length]);
 
+    // components and logic of webpage
     return (
         <div>
             <input type="file" onChange={handleFileChange} />

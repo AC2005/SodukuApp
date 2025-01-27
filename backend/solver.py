@@ -57,13 +57,14 @@ def solve_with_steps(board):
                     boxes[3 * (x // 3) + (y // 3)].add(str(i))
 
                     res.append([row[:] for row in board])
-                    # found valid number and calling next backtrack
+                    # found valid number and adding it to board
                     if y == len(board[0]) - 1:
                         if backtrack(x + 1, 0):
                             return True
                     else:
                         if backtrack(x, y + 1):
                             return True
+                    # number didn't work, backtrack
                     rows[x].remove(str(i))
                     cols[y].remove(str(i))
                     boxes[3 * (x // 3) + (y // 3)].remove(str(i))

@@ -10,32 +10,37 @@ CORS(app)
 @app.route('/extract', methods=['POST'])
 @cross_origin()
 def solve_sudoku():
+    # endpoint that, given a 9x9 board, will extract the digits from the board into an array
     if not os.path.exists('temp'):
         os.makedirs('temp')
     file = request.files['image']
     image_path = f"temp/{file.filename}"
     file.save(image_path)
 
+    # extraction done here
     board = process_sudoku(image_path)
     return jsonify({"board": board})
 
 @app.route('/solve', methods=['POST'])
 def solve_board():
+    # endpoint to solve the board
     data = request.get_json()
     if 'board' not in data:
         return jsonify({"error": "No board provided"}), 400
     board = data['board']
     try:
-        states = solve_with_steps(board)  # This function returns all intermediate states
-        return jsonify({"states": states})  # Return all states to the frontend
+        states = solve_with_steps(board) 
+        # return states to frontend
+        return jsonify({"states": states}) 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 @app.route('/')
 def index():
+    # what to load when the app starts
     return send_from_directory(app.static_folder, 'index.html')
 
-# Catch-all for client-side routing
+# to catch all other requests
 @app.route('/<path:path>')
 def serve_react_app(path):
     # If the requested file exists in build/, serve it

@@ -39,7 +39,7 @@ code {
 }
 
 .sudoku-row {
-  display: contents; /* Allow the grid layout to work for rows */
+  display: contents; 
 }
 
 .sudoku-cell {
@@ -50,8 +50,8 @@ code {
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  border: 1px solid black; /* Default thin border for cells */
-  box-sizing: border-box; /* Ensure borders are included in the size */
+  border: 1px solid black; 
+  box-sizing: border-box; 
 }
 
 
@@ -79,7 +79,7 @@ button:disabled {
 
 .button-group {
   display: flex;
-  gap: 10px; /* Add spacing between buttons */
+  gap: 10px; 
   margin-top: 10px;
 }
 
@@ -127,8 +127,8 @@ button:disabled {
   justify-content: center;
   font-size: 18px;
   color: red;
-  border: 1px solid black; /* Default thin border for cells */
-  box-sizing: border-box; /* Ensure borders are included in the size */
+  border: 1px solid black; 
+  box-sizing: border-box;
 }
 
 .sudoku-cell-input {
@@ -143,6 +143,6 @@ button:disabled {
 .status-message {
   margin-top: 20px;
   font-size: 16px;
-  color: #007bff; /* Optional: Use a color to make it stand out */
+  color: #007bff; 
   font-weight: bold;
 }
