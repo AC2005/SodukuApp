@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS, cross_origin
 from backend.solver import solve_with_steps
 from backend.grid_extraction import process_sudoku
@@ -30,6 +30,10 @@ def solve_board():
         return jsonify({"states": states})  # Return all states to the frontend
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/')
+def serve():
+    return send_from_directory(app.static_folder, 'index.html');
 
 if __name__ == '__main__':
     app.run(debug=True)
