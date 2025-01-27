@@ -9,6 +9,7 @@ function SudokuSolver() {
     const [states, setStates] = useState([]); // Store intermediate backtracking states
     const [currentStep, setCurrentStep] = useState(0); // Track the current state being displayed
     const [isAnimating, setIsAnimating] = useState(false); // Animation toggle
+    const [isProcessing, setIsProcessing] = useState(false);
 
     const [isOriginal, setIsOriginal] = useState(
         Array(9)
@@ -20,6 +21,7 @@ function SudokuSolver() {
     };
 
     const handleSubmit = async () => {
+        setIsProcessing(true);
         if (!file) {
             alert("Please select a file before submitting.");
             return;
@@ -44,6 +46,7 @@ function SudokuSolver() {
                 setEditableBoard(JSON.parse(JSON.stringify(data.board))); // Clone the board for editing
                 setIsEditing(false); // Reset editing mode
                 setStates(0);
+
                 console.log("hi", board);
             } else {
                 alert("Error: Unable to load puzzle");
@@ -52,6 +55,8 @@ function SudokuSolver() {
             console.error("Fetch error:", error);
             alert("Failed to connect to the server.");
         }
+
+        setIsProcessing(false);
     };
 
     const renderBoard = (grid) => {
@@ -171,6 +176,8 @@ function SudokuSolver() {
         <div>
             <input type="file" onChange={handleFileChange} />
             <button onClick={handleSubmit}>Upload</button>
+            {isProcessing && <p className="status-message">Processing your file... Please wait.</p>}
+            
             {board && (
                 <div>
                     <h3>{isEditing ? 'Edit the Board' : 'Extracted Board:'}</h3>
