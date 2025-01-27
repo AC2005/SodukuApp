@@ -28,7 +28,7 @@ function SudokuSolver() {
         formData.append('image', file);
         console.log("File being sent:", file);
         try {
-            const response = await fetch('http://127.0.0.1:5000/extract', {
+            const response = await fetch('/extract', {
                 method: 'POST',
                 body: formData,
             });
@@ -84,7 +84,7 @@ function SudokuSolver() {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/solve', {
+            const response = await fetch('/solve', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
