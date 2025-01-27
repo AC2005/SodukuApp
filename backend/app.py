@@ -5,7 +5,7 @@ from backend.grid_extraction import process_sudoku
 import os
 
 app = Flask(__name__, static_folder="../frontend/build", static_url_path='')
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app)
 
 @app.route('/extract', methods=['POST'])
 @cross_origin()
