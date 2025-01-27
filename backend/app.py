@@ -32,7 +32,16 @@ def solve_board():
         return jsonify({"error": str(e)}), 500
 
 @app.route('/')
-def serve():
+def index():
+    return send_from_directory(app.static_folder, 'index.html')
+
+# Catch-all for client-side routing
+@app.route('/<path:path>')
+def serve_react_app(path):
+    # If the requested file exists in build/, serve it
+    if os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    # Otherwise, serve index.html
     return send_from_directory(app.static_folder, 'index.html')
 
 
