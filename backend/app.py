@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
-from solver import solve_with_steps
-from grid_extraction import process_sudoku
+from backend.solver import solve_with_steps
+from backend.grid_extraction import process_sudoku
 import os
 
 app = Flask(__name__, static_folder="sudokuapp/frontend/build", static_url_path='')
