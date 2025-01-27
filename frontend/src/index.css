@@ -141,3 +141,10 @@ button:disabled {
   border: none;
   outline: none;
 }
+
+.status-message {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #007bff; /* Optional: Use a color to make it stand out */
+  font-weight: bold;
+}
