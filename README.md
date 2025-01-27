@@ -12,3 +12,5 @@ The main features of this project are:
 This project took ~8-10 hours to develop.
 
 The project is deployed at the following link: https://ocr-sudoku-app-058cbfeee458.herokuapp.com/ 
+
+There's a folder on github called "test images" that contains sudoku puzzles that can be uploaded to the app (feel free to try your own too)
