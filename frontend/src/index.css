@@ -1,0 +1,123 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.sudoku-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  max-width: 360px;
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+
+.sudoku-row {
+  display: contents; /* Allow the grid layout to work for rows */
+}
+
+.sudoku-cell {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border: 1px solid black; /* Default thin border for cells */
+  box-sizing: border-box; /* Ensure borders are included in the size */
+}
+
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  margin: 10px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+
+.button-group {
+  display: flex;
+  gap: 10px; /* Add spacing between buttons */
+  margin-top: 10px;
+}
+
+.button-group button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.button-group button:hover {
+  background-color: #0056b3;
+}
+
+.button-group button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.cell {
+  font-size: 20px;
+  text-align: center;
+}
+
+.cell.original {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: black;
+  border: 1px solid black; /* Default thin border for cells */
+  box-sizing: border-box; /* Ensure borders are included in the size */
+}
+
+.cell.solver {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: red;
+  border: 1px solid black; /* Default thin border for cells */
+  box-sizing: border-box; /* Ensure borders are included in the size */
+}
+
+.sudoku-cell-input {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 20px;
+  border: none;
+  outline: none;
+}
