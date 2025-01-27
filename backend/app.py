@@ -4,7 +4,7 @@ from backend.solver import solve_with_steps
 from backend.grid_extraction import process_sudoku
 import os
 
-app = Flask(__name__, static_folder="sudokuapp/frontend/build", static_url_path='')
+app = Flask(__name__, static_folder="../frontend/build", static_url_path='')
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 @app.route('/extract', methods=['POST'])
